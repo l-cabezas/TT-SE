@@ -8,7 +8,7 @@
 
 
 uint16_t liminf=100;
-uint16_t limsup=300;
+uint16_t limsup=500;
 int vabien=1;
 volatile uint32_t g_systickCounter;
 int empieza =0;
@@ -59,7 +59,7 @@ int main()
 
     while(1)
     {
-    	while(limsup < 700){
+    	while(limsup < 1000){
     		for ( i = 0; i < 250000; i++); // Delay
 	    	x = Touch_Scan_LH();    // para la depuracion, recuperar el valor que devuelve el touchpad
 	    	//lcd_display_dec(x);// para la depuracion, mostrar el valor que devuelve el touchpad
