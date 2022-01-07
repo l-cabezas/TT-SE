@@ -23,7 +23,7 @@ void Touch_Init()
 								TSI_GENCS_PS(0u) | // 0-7 for electrode prescaler
 								TSI_GENCS_NSCN(31u) | // 0-31 + 1 for number of scans per electrode
 								TSI_GENCS_TSIEN_MASK | // TSI enable bit
-								//TSI_GENCS_TSIIEN_MASK | //TSI interrupt is disables
+								TSI_GENCS_TSIIEN_MASK | //TSI interrupt is disables (COMENTAR)
 								TSI_GENCS_STPE_MASK | // Enables TSI in low power mode
 								//TSI_GENCS_STM_MASK | // 0 for software trigger, 1 for hardware trigger
 								//TSI_GENCS_SCNIP_MASK | // scan in progress flag

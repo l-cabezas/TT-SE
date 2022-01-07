@@ -361,17 +361,41 @@ void lcd_set_fast(void)
 }
 
 
-void lcd_set_ok(void)
+void lcd_set_go(void)
 {
 
+
+    	//G
+    	LCD->WF8B[LCD_Frontplane_Pin[2]] = LCD_SEG_D |LCD_SEG_E |LCD_SEG_F;
+	LCD->WF8B[LCD_Frontplane_Pin[3]] = LCD_SEG_A | LCD_SEG_C;
+	
 	//O
 	LCD->WF8B[LCD_Frontplane_Pin[4]] = LCD_SEG_D | LCD_SEG_E |LCD_SEG_F;
     	LCD->WF8B[LCD_Frontplane_Pin[5]] = LCD_SEG_A | LCD_SEG_B | LCD_SEG_C;
     	
-    	//K
-    	LCD->WF8B[LCD_Frontplane_Pin[6]] = LCD_SEG_E |LCD_SEG_F| LCD_SEG_G;
-	LCD->WF8B[LCD_Frontplane_Pin[7]] = LCD_SEG_B | LCD_SEG_C;
+
+}
+
+
+void lcd_set_pass(void)
+{
+
+	//P
+	LCD->WF8B[LCD_Frontplane_Pin[0]] = LCD_SEG_E |LCD_SEG_F| LCD_SEG_G;
+    	LCD->WF8B[LCD_Frontplane_Pin[1]] = LCD_SEG_A | LCD_SEG_B;
     	
+    	//A
+	LCD->WF8B[LCD_Frontplane_Pin[2]] = LCD_SEG_E |LCD_SEG_F| LCD_SEG_G;
+	LCD->WF8B[LCD_Frontplane_Pin[3]] = LCD_SEG_A | LCD_SEG_B | LCD_SEG_C;
+	
+	//S
+	LCD->WF8B[LCD_Frontplane_Pin[4]] = LCD_SEG_D | LCD_SEG_F| LCD_SEG_G;
+	LCD->WF8B[LCD_Frontplane_Pin[5]] = LCD_SEG_A | LCD_SEG_C;
+	
+    	//S
+	LCD->WF8B[LCD_Frontplane_Pin[6]] = LCD_SEG_D | LCD_SEG_F| LCD_SEG_G;
+	LCD->WF8B[LCD_Frontplane_Pin[7]] = LCD_SEG_A | LCD_SEG_C;
+	
 
 }
 
