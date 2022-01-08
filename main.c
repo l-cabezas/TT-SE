@@ -10,24 +10,18 @@
 uint16_t liminf=50;
 uint16_t limsup=500;
 int vabien=1;
-//volatile uint32_t g_systickCounter;
 int empieza =0;
 int lento =0;
 int rapido =0;
 
-//añadir tambien los botones:pulsar uno para despertar y para abandonar el juego si no se consigue abrir la puerta
 
-// RIGHT_SWITCH (SW1) = PTC3
 // LEFT_SWITCH (SW2) = PTC12
-void sws_ini()
+void sw_ini()
 {
   SIM->COPC = 0;
-  SIM->SCGC5 |= SIM_SCGC5_PORTC_MASK;
-  PORTC->PCR[3] |= PORT_PCR_MUX(1) | PORT_PCR_PE(1);
   PORTC->PCR[12] |= PORT_PCR_MUX(1) | PORT_PCR_PE(1);
-  GPIOC->PDDR &= ~(1 << 3 | 1 << 12);
+  GPIOC->PDDR &= ~(1 << 12);
   
-  PORTC->PCR[3] |= PORT_PCR_IRQC(0xA); // IRQ on falling edge
   PORTC->PCR[12] |= PORT_PCR_IRQC(0xA); // IRQ on falling edge
   
   // IRQ#31: Pin detect for PORTS C & D
@@ -78,7 +72,7 @@ int main()
     leds_ini();
     irclk_ini(); 
     lcd_ini();
-    sws_ini();
+    sw_ini();
     Touch_Init();
     __WFI();
     
@@ -92,14 +86,15 @@ int main()
 	
 	while(limsup < 1100){
 	    	for ( i = 0; i < 250000; i++); // Delay con que se mide cada valor de x
-		x = Touch_Scan_LH();    // para la depuracion, recuperar el valor que devuelve el touchpad
-		//lcd_display_dec(x);// para la depuracion, mostrar el valor que devuelve el touchpad
+		x = Touch_Scan_LH();    // para la depuración, recuperar el valor que devuelve el touchpad
+		lcd_display_dec(x);// para la depuración, mostrar el valor que devuelve el touchpad
 		//lcd_display_dec(liminf); //para al depuracion, mostrar como aumenta el limite superior (cambiar a limite inferior)
-		if((x>100)){ //si todavia no se empezo a tocar el touchpad, aproximadamente el valor de x es 70-80, por lo tanto, en el momento en que se empieza a deslizar, siempre es superior a 85
+		
+		if((x>100)){ //si todavia no se empezo a tocar el touchpad, aproximadamente el valor de x es 70-80, por lo tanto, en el momento en que se empieza a deslizar, siempre es superior a 				     //85-100
 			if((x>=liminf) && (x<=limsup)){ //en el caso en que el dedo se encuentre dentro de los limites de lo correcto
 				liminf = liminf +25; //paso del limite inferior.
-				limsup = limsup +25; //paso del limtie superior. incrementar el valor del paso (mas que 25) hace que haya que desplazar el dedo mas deprisa
-				empieza = 1; //es porque al iniciar el touchpad primero hay un pico en los valores que se leen. de esta forma solo se modifica la variable de "vabien" una vez que este entre los limites superior y inferior, que es despues de este minimo instante incial, cuando se empieza a tocar el touchpad
+				limsup = limsup +25; //paso del limtie superior. Incrementar el valor del paso (más que 25) hace que haya que desplazar el dedo más deprisa
+				empieza = 1; //es porque al iniciar el touchpad primero hay un pico en los valores que se leen. De esta forma solo se modifica la variable de "vabien" una vez que este entre los limites superior y inferior, que es despues de este mínimo instante incial, cuando se empieza a tocar el touchpad
 			}else{
 				if(empieza){//de esta forma descartamos el instante inicial,es decir una vez que el valor que devuelve el touchpad ha estado entre los limites superior e inferior
 					lcd_clear();//limpiamos el lcd para que deje de aparecer el go que aparece inicialmente
@@ -113,14 +108,7 @@ int main()
 					
 			}
 		}
-		//para comprobar si vas bien a medida que mueves el dedo(facilita depuracion)
-		/*if(vabien){
-			GPIOD->PCOR =(1<<5);//encender el verde (poner un 0)
-	    		GPIOE->PSOR =(1<<29);//apagar el led rojo (poner un 1)
-		}else{
-			GPIOE->PCOR =(1<<29);
-			GPIOD->PSOR =(1<<5);
-		};*/
+
 	}
 	
 		
@@ -148,3 +136,4 @@ int main()
     }
 
 }
+
