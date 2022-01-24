@@ -87,7 +87,7 @@ int main()
 	while(limsup < 1100){
 	    	for ( i = 0; i < 250000; i++); // Delay con que se mide cada valor de x
 		x = Touch_Scan_LH();    // para la depuración, recuperar el valor que devuelve el touchpad
-		lcd_display_dec(x);// para la depuración, mostrar el valor que devuelve el touchpad
+		//lcd_display_dec(x);// para la depuración, mostrar el valor que devuelve el touchpad
 		//lcd_display_dec(liminf); //para al depuracion, mostrar como aumenta el limite superior (cambiar a limite inferior)
 		
 		if((x>100)){ //si todavia no se empezo a tocar el touchpad, aproximadamente el valor de x es 70-80, por lo tanto, en el momento en que se empieza a deslizar, siempre es superior a 				     //85-100
